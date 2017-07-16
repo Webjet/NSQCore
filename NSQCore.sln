@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26606.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NSQCore", "NSQCore\NSQCore.csproj", "{A555696C-42D4-42C2-9B96-B73EBB7C61B7}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NSQCoreClient", "NSQCoreClient\NSQCoreClient.csproj", "{9E219E99-B620-4552-8E8E-0244C1861A41}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A555696C-42D4-42C2-9B96-B73EBB7C61B7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A555696C-42D4-42C2-9B96-B73EBB7C61B7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A555696C-42D4-42C2-9B96-B73EBB7C61B7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A555696C-42D4-42C2-9B96-B73EBB7C61B7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9E219E99-B620-4552-8E8E-0244C1861A41}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9E219E99-B620-4552-8E8E-0244C1861A41}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9E219E99-B620-4552-8E8E-0244C1861A41}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9E219E99-B620-4552-8E8E-0244C1861A41}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
