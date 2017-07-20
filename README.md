@@ -1,10 +1,13 @@
 NSQCore
 ================
 
-[![NuGet](https://img.shields.io/nuget/v/)](http://www.nuget.org/packages/)
+[![NuGet](https://img.shields.io/nuget/v/NSQCore.svg)](https://www.nuget.org/packages/NSQCore)
 
 An [NSQ][nsq] .NET Core 1.0 client library which targets netstandard 1.4
+
 It is only compatible with nsqio version 1.0.0-compat
+
+This project was originally branched from https://github.com/jennings/Turbocharged.NSQ and then converted to .Net Standard 1.4
 
 
 Usage
