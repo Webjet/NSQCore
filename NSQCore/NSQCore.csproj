@@ -2,6 +2,15 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard1.4</TargetFramework>
+    <PackageId>NSQCore</PackageId>
+    <PackageVersion>1.0.0</PackageVersion>
+    <Authors>Kailesh</Authors>
+	<Owners>Webjet</Owners>
+    <Description>.Net Core client for NSQ </Description>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <PackageReleaseNotes>First release</PackageReleaseNotes>
+    <Copyright>Copyright 2017 (c) Webjet Marketing Pty Ltd. All rights reserved.</Copyright>
+    <PackageTags>NSQ NSQCore .NetCore</PackageTags>
   </PropertyGroup>
 
   <ItemGroup>

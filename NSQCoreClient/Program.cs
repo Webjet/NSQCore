@@ -11,7 +11,7 @@ namespace NSQCoreClient
         private static void Main(string[] args)
         {
             
-            Task.Run( PublishMessage).GetAwaiter().GetResult();
+            //Task.Run( PublishMessage).GetAwaiter().GetResult();
 
             Task.Run(LookupConsumeMessages).GetAwaiter().GetResult();
 
