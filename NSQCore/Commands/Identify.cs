@@ -20,7 +20,8 @@ namespace NSQCore.Commands
                 feature_negotiation = true,
                 tls_v1 = false,
                 snappy = false,
-                deflate = false
+                deflate = false,
+                msg_timeout = options.MessageTimeout
             };
         }
 

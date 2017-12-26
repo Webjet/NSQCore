@@ -76,7 +76,7 @@ namespace NSQCore
         /// </summary>
         public Task RequeueAsync()
         {
-            throw new NotImplementedException();
+            return _connection.SendCommandAsync(new Requeue(this.Id));
         }
 
         /// <summary>

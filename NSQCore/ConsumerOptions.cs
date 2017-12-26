@@ -47,6 +47,12 @@ namespace NSQCore
         public TimeSpan LookupPeriod { get; set; }
 
         /// <summary>
+        /// The server-side message timeout in milliseconds for messages delivered
+        /// to this client.
+        /// </summary>
+        public int? MessageTimeout { get; set; }
+
+        /// <summary>
         /// The initial delay before attempting reconnection if the connection to NSQ fails.
         /// By default, the delay will be doubled on each attempt until reconnection, up to
         /// a maximum of <c>ReconnectionMaxDelay</c>.
@@ -68,6 +74,7 @@ namespace NSQCore
         private const string LookupperiodKey = "lookupperiod";
         private const string ReconnectiondelayKey = "reconnectiondelay";
         private const string ReconnectionmaxdelayKey = "reconnectionmaxdelay";
+        private const string MessagetimeoutKey = "messagetimeout";
 
         private const int DefaultLookupdHttpPort = 4061;
         private const int DefaultNsqdTcpPort = 4050;
@@ -146,6 +153,11 @@ namespace NSQCore
             if (parts.Contains(ReconnectionmaxdelayKey))
             {
                 options.ReconnectionMaxDelay = TimeSpan.FromSeconds(int.Parse(parts[ReconnectionmaxdelayKey].Last()));
+            }
+
+            if (parts.Contains(MessagetimeoutKey))
+            {
+                options.MessageTimeout = int.Parse(parts[MessagetimeoutKey].Last());
             }
 
             return options;
