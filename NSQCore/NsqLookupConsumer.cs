@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
 
 namespace NSQCore
 {
@@ -20,6 +21,7 @@ namespace NSQCore
         private int _maxInFlight;
         private int _started;
         private bool _disposed;
+        private ILogger _logger;
 
         // No need to ever reconnect, we'll reconnect on the next lookup cycle
         private static readonly NoRetryBackoffStrategy NoRetryBackoff = new NoRetryBackoffStrategy();
@@ -45,9 +47,10 @@ namespace NSQCore
             handler?.Invoke(this, new InternalMessageEventArgs(string.Format(format, args)));
         }
 
-        public NsqLookupConsumer(ConsumerOptions options)
+        public NsqLookupConsumer(ConsumerOptions options, ILogger logger)
         {
             _options = options;
+            _logger = logger;
 
             foreach (var lookupEndPoint in options.LookupEndPoints)
             {
@@ -57,8 +60,8 @@ namespace NSQCore
             _firstConnectionTask = _firstConnectionTaskCompletionSource.Task;
         }
 
-        public NsqLookupConsumer(string connectionString)
-            : this(ConsumerOptions.Parse(connectionString))
+        public NsqLookupConsumer(string connectionString, ILogger logger)
+            : this(ConsumerOptions.Parse(connectionString), logger)
         {
         }
 
@@ -75,14 +78,14 @@ namespace NSQCore
             var wasStarted = Interlocked.CompareExchange(ref _started, 1, 0);
             if (wasStarted != 0) return;
 
+            OnInternalMessage("Starting LookupTask");
             _lookupTimer = new Timer(LookupTask, handler, TimeSpan.Zero, _options.LookupPeriod);
         }
 
         private void LookupTask(object messageHandler)
         {
             MessageHandler handler = (MessageHandler)messageHandler;
-
-            OnInternalMessage("Begin lookup cycle");
+            // OnInternalMessage("Begin lookup cycle");
             int beginningCount, endingCount,
                 added = 0, removed = 0;
 
@@ -142,6 +145,13 @@ namespace NSQCore
                 SetMaxInFlightWithoutWaitingForInitialConnectionAsync(_maxInFlight).Wait();
             }
 
+            var message = string.Format("End lookup cycle. BeginningCount = {0}, EndingCount = {1}, Added = {2}, Removed = {3}", beginningCount, endingCount, added, removed);
+            OnInternalMessage(message);
+            if (added != 0 || removed != 0 || _firstDiscoveryCycle)
+            {
+                _logger?.LogInformation(message);
+            }
+
             if (_firstDiscoveryCycle)
             {
                 _firstConnectionTaskCompletionSource.TrySetResult(true);
@@ -149,7 +159,8 @@ namespace NSQCore
             }
 
             OnDiscoveryCompleted(nsqAddresses);
-            OnInternalMessage("End lookup cycle. BeginningCount = {0}, EndingCount = {1}, Added = {2}, Removed = {3}", beginningCount, endingCount, added, removed);
+
+            
         }
 
         public async Task PublishAsync(Topic topic, MessageBody message)

@@ -3,6 +3,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using NSQCore;
+using Microsoft.Extensions.Logging;
 
 namespace NSQCoreClient
 {
@@ -31,8 +32,11 @@ namespace NSQCoreClient
 
         private static async Task LookupConsumeMessages()
         {
+            var loggerFactory = new LoggerFactory();
+            loggerFactory.AddConsole();
+            ILogger logger = loggerFactory.CreateLogger("LookupConsumeMessages");
 
-            var cons = NsqConsumer.Create("lookupd=localhost:4161; topic=topic1; channel=abc");
+            var cons = NsqConsumer.Create("lookupd=localhost:4161; topic=topic1; channel=abc", logger);
             await cons.ConnectAndWaitAsync(Handler);
             await cons.SetMaxInFlightAsync(5);
         }
